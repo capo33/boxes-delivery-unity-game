@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Driver : MonoBehaviour
 {
-    [SerializeField] float steerSpeed = 0.1f;
-    [SerializeField] float moveSpeed = 0.01f;
+    [SerializeField] float steerSpeed = 200f;
+    [SerializeField] float moveSpeed = 15f;
     void Start()
     {
         // transform.Rotate(0,0,50);
@@ -14,7 +14,11 @@ public class Driver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0,0,steerSpeed);
-        transform.Translate(0,moveSpeed,0);
+        // GetAxis for moving direction from the Keyboard
+        float horizontalSpeed = Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime;
+        float verticalSpeed = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+
+        transform.Rotate(0, 0, -horizontalSpeed);
+        transform.Translate(0, verticalSpeed, 0);
     }
 }
